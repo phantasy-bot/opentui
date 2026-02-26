@@ -1,5 +1,5 @@
 {
-  "name": "@phantasy/opentui-core",
+  "name": "@opentui/core",
   "description": "Phantasy fork of OpenTUI with image rendering support (kitty/iTerm2 protocols)",
   "repository": {
     "type": "git",
@@ -50,12 +50,12 @@
     "bun-webgpu": "0.1.4",
     "planck": "^1.4.2",
     "three": "0.177.0",
-    "@phantasy/opentui-core-darwin-x64": "0.1.77-phantasy.1",
-    "@phantasy/opentui-core-darwin-arm64": "0.1.77-phantasy.1",
-    "@phantasy/opentui-core-linux-x64": "0.1.77-phantasy.1",
-    "@phantasy/opentui-core-linux-arm64": "0.1.77-phantasy.1",
-    "@phantasy/opentui-core-win32-x64": "0.1.77-phantasy.1",
-    "@phantasy/opentui-core-win32-arm64": "0.1.77-phantasy.1"
+    "@opentui/core-darwin-x64": "0.1.77-phantasy.1",
+    "@opentui/core-darwin-arm64": "0.1.77-phantasy.1",
+    "@opentui/core-linux-x64": "0.1.77-phantasy.1",
+    "@opentui/core-linux-arm64": "0.1.77-phantasy.1",
+    "@opentui/core-win32-x64": "0.1.77-phantasy.1",
+    "@opentui/core-win32-arm64": "0.1.77-phantasy.1"
   },
   "exports": {
     ".": {
