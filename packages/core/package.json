@@ -1,15 +1,15 @@
 {
-  "name": "@opentui/core",
-  "description": "OpenTUI is a TypeScript library for building terminal user interfaces (TUIs)",
+  "name": "@phantasy/opentui-core",
+  "description": "Phantasy fork of OpenTUI with image rendering support (kitty/iTerm2 protocols)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/anomalyco/opentui",
+    "url": "https://github.com/phantasy-bot/opentui",
     "directory": "packages/core"
   },
   "types": "src/index.ts",
   "module": "src/index.ts",
   "main": "src/index.ts",
-  "version": "0.1.77",
+  "version": "0.1.77-phantasy.1",
   "type": "module",
   "scripts": {
     "build": "bun run build:native && bun run build:lib",
@@ -50,12 +50,12 @@
     "bun-webgpu": "0.1.4",
     "planck": "^1.4.2",
     "three": "0.177.0",
-    "@opentui/core-darwin-x64": "0.1.77",
-    "@opentui/core-darwin-arm64": "0.1.77",
-    "@opentui/core-linux-x64": "0.1.77",
-    "@opentui/core-linux-arm64": "0.1.77",
-    "@opentui/core-win32-x64": "0.1.77",
-    "@opentui/core-win32-arm64": "0.1.77"
+    "@phantasy/opentui-core-darwin-x64": "0.1.77-phantasy.1",
+    "@phantasy/opentui-core-darwin-arm64": "0.1.77-phantasy.1",
+    "@phantasy/opentui-core-linux-x64": "0.1.77-phantasy.1",
+    "@phantasy/opentui-core-linux-arm64": "0.1.77-phantasy.1",
+    "@phantasy/opentui-core-win32-x64": "0.1.77-phantasy.1",
+    "@phantasy/opentui-core-win32-arm64": "0.1.77-phantasy.1"
   },
   "exports": {
     ".": {
