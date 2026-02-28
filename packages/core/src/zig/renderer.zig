@@ -2,6 +2,7 @@ const std = @import("std");
 const Allocator = std.mem.Allocator;
 const ansi = @import("ansi.zig");
 const kitty = @import("kitty.zig");
+const iterm2 = @import("iterm2.zig");
 const buf = @import("buffer.zig");
 const gp = @import("grapheme.zig");
 const link = @import("link.zig");
@@ -1390,6 +1391,9 @@ pub const CliRenderer = struct {
     }
 
     pub fn renderPixels(self: *CliRenderer, writer: anytype) void {
+        // Check terminal capabilities to determine which graphics protocol to use
+        const caps = self.terminal.caps;
+
         // check for removed patches - iterate backwards to avoid skipping elements
         const currentPatches = self.currentPixelBuffer.patches.items;
         var i: usize = currentPatches.len;
@@ -1397,7 +1401,10 @@ pub const CliRenderer = struct {
             i -= 1;
             const patch = currentPatches[i];
             if (!self.nextPixelBuffer.hasPatch(patch)) {
-                kitty.IMAGE.delete(writer, patch.id);
+                // Only delete from Kitty (iTerm2 doesn't support deletion the same way)
+                if (caps.kitty_graphics) {
+                    kitty.IMAGE.delete(writer, patch.id);
+                }
                 _ = self.currentPixelBuffer.patches.orderedRemove(i);
             }
         }
@@ -1405,7 +1412,13 @@ pub const CliRenderer = struct {
         // check for new patches in the next pixel buffer
         for (self.nextPixelBuffer.patches.items) |patch| {
             if (!self.currentPixelBuffer.hasPatch(patch)) {
-                kitty.IMAGE.create(writer, patch.id, patch.x, patch.y + self.renderOffset, patch.width, patch.height, patch.data, self.allocator);
+                if (caps.iterm2_images) {
+                    // Use iTerm2 inline images protocol
+                    iterm2.IMAGE.write(writer, patch.width, patch.height, patch.data);
+                } else if (caps.kitty_graphics) {
+                    // Use Kitty graphics protocol
+                    kitty.IMAGE.create(writer, patch.id, patch.x, patch.y + self.renderOffset, patch.width, patch.height, patch.data, self.allocator);
+                }
                 self.currentPixelBuffer.addPatch(patch);
             }
         }

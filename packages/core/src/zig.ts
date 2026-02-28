@@ -22,7 +22,7 @@ import {
 import { isBunfsPath } from "./lib/bunfs"
 import { attributesWithLink } from "./utils"
 
-const module = await import(`@opentui/core-${process.platform}-${process.arch}/index.ts`)
+const module = await import(`@phantasy/opentui-core-${process.platform}-${process.arch}/index.ts`)
 let targetLibPath = module.default
 
 if (isBunfsPath(targetLibPath)) {
@@ -2249,7 +2249,14 @@ class FFIRenderLib implements RenderLib {
     this.opentui.symbols.destroyOptimizedBuffer(bufferPtr)
   }
 
-  public pixelsDrawImage(pixelBufferPtr: Pointer, x: number, y: number, width: number, height: number, data: Uint8Array) {
+  public pixelsDrawImage(
+    pixelBufferPtr: Pointer,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    data: Uint8Array,
+  ) {
     this.opentui.symbols.pixelsDrawImage(pixelBufferPtr, x, y, width, height, data, data.length)
   }
 

@@ -175,6 +175,7 @@ export fn setCursorPosition(rendererPtr: *renderer.CliRenderer, x: i32, y: i32, 
 pub const ExternalCapabilities = extern struct {
     kitty_keyboard: bool,
     kitty_graphics: bool,
+    iterm2_images: bool,
     rgb: bool,
     unicode: u8, // 0 = wcwidth, 1 = unicode
     sgr_pixels: bool,
@@ -202,6 +203,7 @@ export fn getTerminalCapabilities(rendererPtr: *renderer.CliRenderer, capsPtr: *
     capsPtr.* = .{
         .kitty_keyboard = caps.kitty_keyboard,
         .kitty_graphics = caps.kitty_graphics,
+        .iterm2_images = caps.iterm2_images,
         .rgb = caps.rgb,
         .unicode = if (caps.unicode == .wcwidth) 0 else 1,
         .sgr_pixels = caps.sgr_pixels,

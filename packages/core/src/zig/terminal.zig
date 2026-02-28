@@ -14,6 +14,7 @@ pub const Terminal = @This();
 pub const Capabilities = struct {
     kitty_keyboard: bool = false,
     kitty_graphics: bool = false,
+    iterm2_images: bool = false,
     rgb: bool = false,
     unicode: WidthMethod = .unicode,
     sgr_pixels: bool = false,
@@ -342,6 +343,8 @@ fn checkEnvironmentOverrides(self: *Terminal) void {
                 self.caps.unicode = .wcwidth;
             } else if (std.mem.eql(u8, prog, "Alacritty")) {
                 self.caps.explicit_cursor_positioning = true;
+            } else if (std.mem.eql(u8, prog, "iTerm.app")) {
+                self.caps.iterm2_images = true;
             }
         }
 
@@ -369,9 +372,12 @@ fn checkEnvironmentOverrides(self: *Terminal) void {
         }
 
         if (env_map.get("VHS_RECORD")) |_| {
-            self.caps.unicode = .wcwidth;
-            self.caps.kitty_keyboard = false;
-            self.caps.kitty_graphics = false;
+            self.skip_graphics_query = true;
+        }
+
+        // Check for iTerm2 via ITERM_SESSION_ID environment variable
+        if (env_map.get("ITERM_SESSION_ID") != null) {
+            self.caps.iterm2_images = true;
         }
     }
 

@@ -189,7 +189,12 @@ if (buildLib) {
     process.exit(1)
   }
 
-  const entryPoints: string[] = [packageJson.module, "src/3d.ts", "src/testing.ts"]
+  // Use src/index.ts as entry point for building (dist/index.js doesn't exist yet)
+  const entryPoints: string[] = [
+    packageJson.module === "dist/index.js" ? "src/index.ts" : packageJson.module,
+    "src/3d.ts",
+    "src/testing.ts",
+  ]
 
   // Build main entry points with code splitting
   // External patterns to prevent bundling tree-sitter assets and default-parsers
